@@ -1,0 +1,49 @@
+---
+const allUniversities = [
+    { name: "Oxford University", logo: "/oxford.png" },
+    { name: "Stanford University", logo: "/stanford.avif" },
+    { name: "MIT", logo: "/mit.png" },
+    { name: "University of Cambridge", logo: "/cambridge.png" },
+    { name: "Princeton University", logo: "/princton.svg" },
+    { name: "ETH Zurich", logo: "/eth.png" },
+];
+
+const universities = allUniversities.filter((uni) => uni.logo !== "");
+const row = [...universities, ...universities, ...universities];
+---
+
+<section class="pt-0 pb-20 md:pb-28 bg-primary overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 mb-14 flex justify-between items-center" data-reveal="fade">
+        <span class="text-[10px] uppercase tracking-[0.4em] text-white/40 font-semibold">Academic Partners</span>
+        <div class="flex-1 h-px bg-white/10 ml-8"></div>
+    </div>
+
+    <div class="relative">
+        <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-primary to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-primary to-transparent z-10 pointer-events-none"></div>
+
+        <div class="overflow-hidden">
+            <div class="flex gap-16 items-center" data-marquee style="width: max-content;">
+                {row.map((uni) => (
+                    <div class="flex-shrink-0 hover:scale-110 transition-transform duration-500">
+                        <img src={uni.logo} alt={uni.name} class="h-10 md:h-12 w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-500" />
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { animate } from "motion";
+
+    const marquee = document.querySelector<HTMLElement>('[data-marquee]');
+    if (marquee) {
+        const width = marquee.scrollWidth / 3;
+        animate(
+            marquee,
+            { x: [0, -width] },
+            { duration: 25, easing: "linear", repeat: Infinity }
+        );
+    }
+</script>

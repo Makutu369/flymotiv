@@ -1,0 +1,106 @@
+---
+import heroImage from "../assets/hero-image.jpg";
+---
+
+<section
+    class="relative min-h-screen flex flex-col overflow-hidden bg-primary"
+    id="hero"
+>
+    <!-- Background parallax image -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+        <img
+            src={heroImage.src}
+            alt="Global Perspective"
+            class="w-full h-[120%] object-cover parallax-img opacity-40"
+            data-speed="0.15"
+        />
+        <div
+            class="absolute inset-0 bg-gradient-to-b from-primary/60 via-primary/40 to-primary"
+        >
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div
+        class="relative z-10 flex-1 flex flex-col justify-center max-w-6xl mx-auto w-full px-6 py-32 md:py-40"
+    >
+        <span
+            class="inline-block text-[10px] uppercase tracking-[0.4em] text-white/50 font-semibold mb-6"
+            data-hero
+        >
+            Ghana to the World
+        </span>
+
+        <h1
+            class="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold leading-[0.92] mb-6 md:mb-8 tracking-tight text-white"
+        >
+            <span class="block" data-hero>Connecting</span>
+            <span class="block" data-hero>Opportunity with</span>
+            <span class="block" data-hero>Ambition.</span>
+        </h1>
+
+        <p
+            class="text-lg md:text-xl text-white/60 max-w-2xl mb-12 leading-relaxed font-light"
+            data-hero
+        >
+            Expert consultancy for educational trips, scholarships, and
+            transformative global travel experiences from Ghana to the world.
+        </p>
+
+        <div class="flex flex-wrap gap-4" data-hero>
+            <a
+                href="#services"
+                class="magnetic-btn bg-white text-primary px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-shadow duration-300 hover:shadow-xl hover:shadow-white/20"
+            >
+                View Services
+            </a>
+            <a
+                href="#paris"
+                class="magnetic-btn inline-flex items-center gap-2 border border-white/20 text-white px-8 py-4 rounded-full text-sm font-semibold hover:bg-white hover:text-primary transition-all duration-300"
+            >
+                Our Destinations
+                <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    ><path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg
+                >
+            </a>
+        </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div
+        class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
+        data-hero
+    >
+        <span class="text-[9px] uppercase tracking-[0.3em] text-white/30"
+            >Scroll</span
+        >
+        <div
+            class="w-px h-12 bg-gradient-to-b from-black/30 to-transparent relative overflow-hidden"
+        >
+            <div
+                class="absolute top-0 left-0 w-full h-1/2 bg-white"
+                style="animation: scrollLine 1.5s ease-in-out infinite;"
+            >
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes scrollLine {
+        0% {
+            transform: translateY(-100%);
+        }
+        100% {
+            transform: translateY(200%);
+        }
+    }
+</style>

@@ -1,3 +1,13 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+}
+
+const { title = "MotivPro Group | Global Mobility Experts" } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,18 +15,126 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta name="description" content="MotivPro Group — Curated global journeys, visa assistance, and seamless travel experiences from Accra, Ghana." />
+		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
+
+		<script>
+			import { animate, scroll, inView, stagger } from "motion";
+
+			// =============================================
+			// HERO PARALLAX — native scroll, GPU-accelerated
+			// =============================================
+			const heroImg = document.querySelector<HTMLElement>('#hero .parallax-img');
+			if (heroImg) {
+				heroImg.style.willChange = 'transform';
+				const hero = document.getElementById('hero')!;
+				let ticking = false;
+
+				function updateHeroParallax() {
+					const scrollY = window.scrollY;
+					const heroH = hero.offsetHeight;
+					if (scrollY < heroH * 1.5) {
+						heroImg.style.transform = `translate3d(0, ${scrollY * 0.35}px, 0)`;
+					}
+					ticking = false;
+				}
+
+				window.addEventListener('scroll', () => {
+					if (!ticking) {
+						requestAnimationFrame(updateHeroParallax);
+						ticking = true;
+					}
+				}, { passive: true });
+			}
+
+			// =============================================
+			// HERO ENTRANCE
+			// =============================================
+			const hero = document.getElementById('hero');
+			if (hero) {
+				const heroItems = hero.querySelectorAll<HTMLElement>('[data-hero]');
+				animate(
+					heroItems,
+					{ opacity: [0, 1], y: [35, 0] },
+					{ duration: 0.9, easing: [0.33, 1, 0.68, 1], delay: stagger(0.1, { start: 0.15 }) }
+				);
+			}
+
+			// =============================================
+			// BATCHED REVEALS — using inView
+			// =============================================
+			inView('[data-reveal="fade"]', (elements) => {
+				animate(
+					elements,
+					{ opacity: [0, 1], y: [30, 0] },
+					{ duration: 0.8, easing: [0.25, 1, 0.5, 1], delay: stagger(0.06) }
+				);
+			}, { margin: "-8% 0px" });
+
+			inView('[data-reveal="clip"]', (elements) => {
+				animate(
+					elements,
+					{ clipPath: ["inset(100% 0 0 0)", "inset(0% 0 0 0)"] },
+					{ duration: 1.2, easing: [0.65, 0, 0.35, 1], delay: stagger(0.08) }
+				);
+			}, { margin: "-8% 0px" });
+
+			inView('[data-reveal="scale"]', (elements) => {
+				animate(
+					elements,
+					{ opacity: [0, 1], scale: [0.93, 1] },
+					{ duration: 1, easing: [0.25, 1, 0.5, 1], delay: stagger(0.06) }
+				);
+			}, { margin: "-8% 0px" });
+
+			// =============================================
+			// OTHER PARALLAX IMAGES — native scroll
+			// =============================================
+			document.querySelectorAll<HTMLElement>('.parallax-img:not(#hero .parallax-img)').forEach(img => {
+				img.style.willChange = 'transform';
+				const parent = img.parentElement!;
+				let imgTicking = false;
+
+				function updateParallax() {
+					const rect = parent.getBoundingClientRect();
+					const viewH = window.innerHeight;
+					if (rect.bottom > 0 && rect.top < viewH) {
+						const progress = (viewH - rect.top) / (viewH + rect.height);
+						const y = (progress - 0.5) * -40;
+						img.style.transform = `translate3d(0, ${y}px, 0)`;
+					}
+					imgTicking = false;
+				}
+
+				window.addEventListener('scroll', () => {
+					if (!imgTicking) {
+						requestAnimationFrame(updateParallax);
+						imgTicking = true;
+					}
+				}, { passive: true });
+			});
+
+			// =============================================
+			// MAGNETIC BUTTONS
+			// =============================================
+			document.querySelectorAll<HTMLElement>('.magnetic-btn').forEach(btn => {
+				let bounds: DOMRect | null = null;
+				btn.addEventListener('mouseenter', () => { bounds = btn.getBoundingClientRect(); });
+				btn.addEventListener('mousemove', (e: MouseEvent) => {
+					if (!bounds) return;
+					animate(btn, {
+						x: (e.clientX - bounds.left - bounds.width / 2) * 0.2,
+						y: (e.clientY - bounds.top - bounds.height / 2) * 0.2,
+					}, { duration: 0.3, easing: [0.25, 1, 0.5, 1] });
+				});
+				btn.addEventListener('mouseleave', () => {
+					animate(btn, { x: 0, y: 0 }, { duration: 0.5, easing: [0.34, 1.56, 0.64, 1] });
+					bounds = null;
+				});
+			});
+		</script>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

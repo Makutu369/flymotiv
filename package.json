@@ -12,7 +12,10 @@
 	},
 	"dependencies": {
 		"@astrojs/cloudflare": "^12.6.12",
-		"astro": "^5.16.9"
+		"@tailwindcss/vite": "^4.3.0",
+		"astro": "^5.16.9",
+		"motion": "^12.40.0",
+		"tailwindcss": "^4.3.0"
 	},
 	"devDependencies": {
 		"@types/node": "^25.0.7",

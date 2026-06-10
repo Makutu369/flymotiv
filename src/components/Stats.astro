@@ -1,0 +1,33 @@
+---
+const stats = [
+    { label: "Students Placed", value: "500+" },
+    { label: "Partner Universities", value: "50+" },
+    { label: "Corporate Clients", value: "200+" },
+    { label: "Success Rate", value: "98%" },
+];
+---
+
+<section class="py-20 md:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
+            {
+                stats.map((stat) => (
+                    <div class="space-y-3" data-reveal="fade">
+                        <p class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-none tracking-tight transition-colors duration-500 hover:text-accent-orange" style="font-family: var(--font-heading);">
+                            {stat.value.replace("+", "").replace("%", "")}
+                            <span class="text-accent-orange">
+                                {stat.value.includes("+") ? "+" : stat.value.includes("%") ? "%" : ""}
+                            </span>
+                        </p>
+                        <div class="space-y-2">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted">
+                                {stat.label}
+                            </p>
+                            <div class="w-8 h-px bg-accent-orange mx-auto"></div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

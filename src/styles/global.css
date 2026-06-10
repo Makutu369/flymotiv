@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+:root {
+    --primary: #1a2332;
+    --background: #f0f2f5;
+    --accent: #c4cdd6;
+    --text-muted: #6b7a8d;
+    --white: #ffffff;
+
+    --accent-orange: #4a7cc9;
+    --grey-bg: #e8ecf0;
+    --grey-text: #555f6e;
+
+    --font-serif: "Playfair Display", serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-heading: "Syne", sans-serif;
+}
+
+@theme {
+  --color-primary: var(--primary);
+  --color-background: var(--background);
+  --color-accent: var(--accent);
+  --color-text-muted: var(--text-muted);
+  --color-accent-orange: var(--accent-orange);
+  --color-grey-bg: var(--grey-bg);
+  --color-grey-text: var(--grey-text);
+
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--background);
+    color: var(--primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--accent-orange);
+    color: var(--white);
+}
+
+/* Layout */
+.section-padding {
+    @apply py-20 md:py-24 px-6;
+}
+
+.max-w-editorial {
+    @apply max-w-6xl mx-auto;
+}
+
+/* Buttons */
+.btn-editorial {
+    @apply inline-block bg-primary text-white px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5;
+}
+
+.btn-primary {
+    @apply inline-flex items-center gap-2 bg-primary text-white px-7 py-3.5 rounded-full font-medium text-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5;
+}
+
+/* Grid */
+.grid-editorial {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+/* Travel Page */
+.section-label {
+    @apply text-[11px] font-black uppercase tracking-[0.3em] text-text-muted;
+}
+
+.font-heading {
+    font-family: var(--font-heading);
+}
+
+.font-body {
+    font-family: var(--font-sans);
+}
+
+/* Parallax — GSAP handles all transforms */
+.parallax-img {
+    will-change: transform;
+}
+
+/* Magnetic button */
+.magnetic-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Smooth easing */
+.ease-editorial {
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Marquee */
+.marquee-row {
+    display: flex;
+    width: max-content;
+}
+
+.marquee-row--reverse {
+    animation-direction: reverse;
+}
+
+/* Custom Utilities */
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    .serif-italic {
+        font-family: var(--font-serif);
+        font-style: italic;
+    }
+}
