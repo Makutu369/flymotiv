@@ -1,10 +1,10 @@
 ---
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-accent/10 py-4" id="main-nav" style="background-color: rgba(240, 242, 245, 0.95);">
+<nav class="fixed top-11 left-0 right-0 z-50 py-4 backdrop-blur-xl border-b border-accent/10 shadow-sm" id="main-nav" style="background-color: rgba(240, 242, 245, 0.95);">
     <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-2">
-            <span class="text-xl font-bold text-primary tracking-tight" style="font-family: var(--font-heading);">MotivPro</span>
+        <a href="/" class="flex items-center gap-2 group">
+            <span class="text-xl font-bold text-primary tracking-tight transition-colors duration-300 group-hover:text-accent-indigo" style="font-family: var(--font-heading);">MotivPro</span>
         </a>
 
         <div class="hidden md:flex items-center gap-8">
@@ -18,19 +18,19 @@
                 ].map((item) => (
                     <a
                         href={item.href}
-                        class="text-[13px] font-medium text-primary/60 hover:text-primary transition-all duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                        class="text-[13px] font-medium text-primary/60 hover:text-primary transition-all duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-px after:bg-accent-indigo after:transition-all after:duration-300 hover:after:w-full"
                     >
                         {item.name}
                     </a>
                 ))
             }
-            <a href="#contact" class="bg-accent-orange text-white px-6 py-2.5 rounded-full text-[13px] font-semibold hover:shadow-lg hover:shadow-accent-orange/25 hover:-translate-y-0.5 transition-all duration-300">
+            <a href="/consultation" class="bg-accent-indigo text-white px-6 py-2.5 rounded-full text-[13px] font-semibold hover:shadow-lg hover:shadow-accent-indigo/25 hover:-translate-y-0.5 transition-all duration-300">
                 Get Started
             </a>
         </div>
 
         <button
-            class="md:hidden p-2 -mr-2"
+            class="md:hidden p-2 -mr-2 text-primary"
             id="mobile-menu-toggle"
             aria-label="Toggle Menu"
         >
@@ -42,7 +42,7 @@
 
     <div
         id="mobile-menu"
-        class="hidden fixed inset-0 z-40 flex flex-col"
+        class="hidden fixed inset-0 z-40 flex flex-col transition-all duration-300"
         style="background-color: #f0f2f5;"
     >
         <div class="px-6 py-4 flex items-center justify-between border-b border-accent/10">
@@ -64,14 +64,14 @@
                 ].map((item) => (
                     <a
                         href={item.href}
-                        class="text-3xl font-light text-primary/70 hover:text-primary transition-colors"
+                        class="text-3xl font-light text-primary/70 hover:text-primary transition-colors duration-300"
                         style="font-family: var(--font-serif);"
                     >
                         {item.name}
                     </a>
                 ))
             }
-            <a href="#contact" class="btn-editorial mt-4" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
+            <a href="/consultation" class="bg-accent-indigo text-white px-8 py-3 rounded-full text-sm font-semibold hover:shadow-lg hover:shadow-accent-indigo/25 hover:-translate-y-0.5 transition-all duration-300 mt-4" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
                 Get Started
             </a>
         </div>
@@ -79,10 +79,12 @@
 </nav>
 
 <script>
+    const nav = document.getElementById("main-nav");
     const menuToggle = document.getElementById("mobile-menu-toggle");
     const closeMenu = document.getElementById("close-menu");
     const mobileMenu = document.getElementById("mobile-menu");
 
+    // Mobile menu
     menuToggle?.addEventListener("click", () => {
         mobileMenu?.classList.remove("hidden");
         document.body.style.overflow = "hidden";

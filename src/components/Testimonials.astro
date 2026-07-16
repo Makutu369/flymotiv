@@ -21,36 +21,39 @@ const testimonials = [
 ];
 ---
 
-<section class="py-16 md:py-32 bg-white relative overflow-hidden" id="testimonials">
+<section class="py-20 md:py-32 bg-white relative overflow-hidden" id="testimonials">
     <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent"></div>
 
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <div class="text-center mb-12 md:mb-20 space-y-4" data-reveal="fade">
+        <div class="text-center mb-12 md:mb-20 space-y-4">
             <span class="text-[10px] uppercase tracking-[0.4em] text-text-muted font-semibold">Success Stories</span>
             <h2 class="text-4xl md:text-7xl leading-[0.9] tracking-tight">
-                Institutional <span class="serif-italic text-accent-orange">Trust.</span>
+                Institutional <span class="serif-italic text-accent-indigo">Trust.</span>
             </h2>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-4 md:gap-6">
+        <div class="grid md:grid-cols-3 gap-6 md:gap-8">
             {
                 testimonials.map((t) => (
                     <div
-                        class="bg-background rounded-2xl p-6 md:p-10 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:shadow-primary/5 border border-transparent hover:border-accent/20 flex flex-col"
-                        data-reveal="fade"
+                        class="bg-surface rounded-2xl p-8 md:p-10 transition-all duration-500 hover:bg-white hover:shadow-xl hover:shadow-primary/8 border border-accent/10 hover:border-accent-indigo/20 flex flex-col relative group"
+                       
                     >
-                        <div class="flex items-center gap-1 mb-8 text-accent-orange">
+                        {/* Decorative quote mark */}
+                        <div class="absolute top-6 right-8 text-6xl text-accent-indigo/10 font-serif leading-none select-none group-hover:text-accent-indigo/20 transition-colors duration-500">"</div>
+                        
+                        <div class="flex items-center gap-1 mb-8 text-accent-indigo">
                             {[1, 2, 3, 4, 5].map(() => (
-                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                 </svg>
                             ))}
                         </div>
-                        <p class="text-primary font-medium mb-10 leading-relaxed text-[15px] grow">
+                        <p class="text-primary font-medium mb-10 leading-relaxed text-[15px] grow relative z-10">
                             "{t.quote}"
                         </p>
                         <div class="flex items-center gap-4 pt-8 border-t border-accent/15">
-                            <div class="relative w-11 h-11">
+                            <div class="relative w-12 h-12 ring-2 ring-accent-indigo/20 ring-offset-2 ring-offset-white rounded-full">
                                 {t.avatar ? (
                                     <img
                                         src={t.avatar}

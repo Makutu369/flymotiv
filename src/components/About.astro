@@ -5,32 +5,38 @@ import aboutImage from "../assets/isfit-about.jpg";
 <section class="section-padding bg-background" id="about">
     <div class="max-w-editorial px-6 md:px-12">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-24 items-center">
-            <div class="lg:col-span-5 relative" data-reveal="scale">
-                <div class="aspect-[3/4] overflow-hidden rounded-sm shadow-2xl shadow-primary/10">
+            <div class="lg:col-span-5 relative">
+                <div class="aspect-[3/4] overflow-hidden rounded-2xl shadow-2xl shadow-primary/10 relative">
                     <img
                         src={aboutImage.src}
                         alt="The Vision"
-                        class="w-full h-full object-cover parallax-img"
-                        data-speed="0.05"
+                        class="w-full h-full object-cover"
+                       
                     />
+                    {/* Decorative frame */}
+                    <div class="absolute inset-4 border border-white/20 rounded-xl pointer-events-none"></div>
                 </div>
-                <div class="absolute -bottom-8 -right-8 w-64 h-64 bg-accent-orange/15 rounded-full blur-3xl -z-10"></div>
+                {/* Floating accent */}
+                <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-accent-indigo/10 rounded-2xl -z-10 rotate-6"></div>
+                <div class="absolute -top-6 -left-6 w-24 h-24 border border-accent-indigo/20 rounded-2xl -z-10 -rotate-6"></div>
             </div>
 
             <div class="lg:col-span-7 space-y-8 lg:space-y-10">
                 <div class="space-y-4 lg:space-y-6">
-                    <span class="text-[10px] uppercase tracking-[0.4em] text-text-muted font-semibold block" data-reveal="fade">The Art of Travel</span>
-                    <h2 class="text-5xl md:text-6xl lg:text-8xl leading-[0.95] tracking-tight" data-reveal="fade">
+                    <span class="text-[10px] uppercase tracking-[0.4em] text-text-muted font-semibold block">The Art of Travel</span>
+                    <h2 class="text-5xl md:text-6xl lg:text-8xl leading-[0.95] tracking-tight">
                         Our <span class="serif-italic">Mission.</span>
                     </h2>
-                    <p class="text-base md:text-xl text-primary/70 font-light leading-relaxed max-w-xl" data-reveal="fade">
+                    <p class="text-base md:text-xl text-primary/70 font-light leading-relaxed max-w-xl">
                         Established in 2023, <span class="text-primary font-medium italic">Motiv Pro Group</span> has been at the forefront of transformative global experiences, bridging the gap between everyday life and extraordinary discovery.
                     </p>
                 </div>
 
                 <div class="space-y-8 lg:space-y-10 pt-4">
-                    <div class="flex gap-6 md:gap-8" data-reveal="fade">
-                        <span class="text-2xl md:text-3xl serif-italic text-accent-orange/70 leading-none">01.</span>
+                    <div class="flex gap-6 md:gap-8 group">
+                        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-accent-indigo/10 flex items-center justify-center group-hover:bg-accent-indigo group-hover:rotate-3 transition-all duration-500">
+                            <span class="text-xl serif-italic text-accent-indigo group-hover:text-white transition-colors duration-500">01</span>
+                        </div>
                         <div>
                             <h4 class="text-[10px] uppercase tracking-[0.3em] font-bold mb-3 text-primary" style="font-family: var(--font-heading);">Curated Destinations</h4>
                             <p class="text-sm text-text-muted font-light leading-relaxed max-w-md">
@@ -39,8 +45,10 @@ import aboutImage from "../assets/isfit-about.jpg";
                         </div>
                     </div>
 
-                    <div class="flex gap-6 md:gap-8" data-reveal="fade">
-                        <span class="text-2xl md:text-3xl serif-italic text-accent-orange/70 leading-none">02.</span>
+                    <div class="flex gap-6 md:gap-8 group">
+                        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-accent-indigo/10 flex items-center justify-center group-hover:bg-accent-indigo group-hover:rotate-3 transition-all duration-500">
+                            <span class="text-xl serif-italic text-accent-indigo group-hover:text-white transition-colors duration-500">02</span>
+                        </div>
                         <div>
                             <h4 class="text-[10px] uppercase tracking-[0.3em] font-bold mb-3 text-primary" style="font-family: var(--font-heading);">Seamless Journeys</h4>
                             <p class="text-sm text-text-muted font-light leading-relaxed max-w-md">
@@ -50,8 +58,11 @@ import aboutImage from "../assets/isfit-about.jpg";
                     </div>
                 </div>
 
-                <div class="pt-4" data-reveal="fade">
-                    <a href="#contact" class="inline-flex items-center gap-2 bg-accent-orange text-white px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-accent-orange/25 hover:-translate-y-0.5">Connect with us</a>
+                <div class="pt-4">
+                    <a href="/consultation" class="inline-flex items-center gap-3 bg-accent-indigo text-white px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-accent-indigo/25 hover:-translate-y-0.5 group">
+                        Connect with us
+                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
                 </div>
             </div>
         </div>

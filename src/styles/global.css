@@ -9,11 +9,19 @@
     --text-muted: #6b7a8d;
     --white: #ffffff;
 
-    --accent-orange: #4f46e5;
+    --accent-indigo: #4f46e5;
     --accent-blue: #4338ca;
     --accent-warm: #818cf8;
     --grey-bg: #e8ecf0;
     --grey-text: #555f6e;
+
+    --surface: #ffffff;
+    --surface-elevated: #fafbfc;
+
+    --shadow-sm: 0 1px 2px rgba(26,35,50,0.04);
+    --shadow-md: 0 4px 12px rgba(26,35,50,0.06);
+    --shadow-lg: 0 12px 40px rgba(26,35,50,0.08);
+    --shadow-xl: 0 20px 60px rgba(26,35,50,0.12);
 
     --font-serif: "Cormorant Garamond", serif;
     --font-sans: "Inter", system-ui, sans-serif;
@@ -25,11 +33,13 @@
   --color-background: var(--background);
   --color-accent: var(--accent);
   --color-text-muted: var(--text-muted);
-  --color-accent-orange: var(--accent-orange);
+  --color-accent-indigo: var(--accent-indigo);
   --color-accent-blue: var(--accent-blue);
   --color-accent-warm: var(--accent-warm);
   --color-grey-bg: var(--grey-bg);
   --color-grey-text: var(--grey-text);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
 
   --font-serif: "Cormorant Garamond", serif;
   --font-sans: "Inter", system-ui, sans-serif;
@@ -50,7 +60,7 @@ body {
 }
 
 ::selection {
-    background: var(--accent-orange);
+    background: var(--accent-indigo);
     color: var(--white);
 }
 
@@ -65,11 +75,11 @@ body {
 
 /* Buttons */
 .btn-editorial {
-    @apply inline-block bg-primary text-white px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-accent-orange/25 hover:-translate-y-0.5;
+    @apply inline-block bg-primary text-white px-8 py-4 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-accent-indigo/25 hover:-translate-y-0.5;
 }
 
 .btn-primary {
-    @apply inline-flex items-center gap-2 bg-primary text-white px-7 py-3.5 rounded-full font-medium text-sm transition-all duration-300 hover:shadow-lg hover:shadow-accent-orange/25 hover:-translate-y-0.5;
+    @apply inline-flex items-center gap-2 bg-primary text-white px-7 py-3.5 rounded-full font-medium text-sm transition-all duration-300 hover:shadow-lg hover:shadow-accent-indigo/25 hover:-translate-y-0.5;
 }
 
 /* Grid */
@@ -88,19 +98,6 @@ body {
 
 .font-body {
     font-family: var(--font-sans);
-}
-
-/* Parallax */
-.parallax-img {
-    will-change: transform;
-}
-
-/* Magnetic button */
-.magnetic-btn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* Smooth easing */
@@ -129,50 +126,6 @@ body {
         font-style: italic;
     }
     
-    /* Awwwards-style utilities */
-    .clip-path-reveal {
-        clip-path: inset(100% 0 0 0);
-    }
-    
-    .clip-path-reveal-active {
-        clip-path: inset(0% 0 0 0);
-    }
-    
-    /* Smooth image reveal */
-    .img-reveal {
-        clip-path: inset(0 0 100% 0);
-        transition: clip-path 1.2s cubic-bezier(0.65, 0, 0.35, 1);
-    }
-    
-    .img-reveal-active {
-        clip-path: inset(0 0 0% 0);
-    }
-    
-    /* Text split animation */
-    .text-split {
-        overflow: hidden;
-    }
-    
-    .text-split > span {
-        display: block;
-        transform: translateY(100%);
-        transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
-    }
-    
-    .text-split-active > span {
-        transform: translateY(0);
-    }
-    
-    /* Smooth scroll indicator */
-    .scroll-indicator {
-        animation: scrollBounce 2s ease-in-out infinite;
-    }
-    
-    @keyframes scrollBounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(8px); }
-    }
-    
     /* Horizontal scroll fade */
     .h-scroll-fade-left {
         mask-image: linear-gradient(to right, transparent, black 5%);
@@ -184,62 +137,11 @@ body {
         -webkit-mask-image: linear-gradient(to left, transparent, black 5%);
     }
     
-    /* Custom cursor */
-    .cursor-dot {
-        width: 8px;
-        height: 8px;
-        background: var(--accent-orange);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        mix-blend-mode: difference;
-        transition: transform 0.15s ease-out;
-    }
-    
-    .cursor-outline {
-        width: 40px;
-        height: 40px;
-        border: 1px solid var(--accent-orange);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9998;
-        opacity: 0.5;
-        transition: transform 0.3s ease-out, width 0.3s ease-out, height 0.3s ease-out;
-    }
-    
-    /* Image hover scale */
-    .img-hover-scale {
-        overflow: hidden;
-    }
-    
-    .img-hover-scale img {
-        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-    
-    .img-hover-scale:hover img {
-        transform: scale(1.05);
-    }
-    
     /* Gradient text */
     .gradient-text {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--accent-orange) 100%);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent-indigo) 100%);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    
-    /* Stagger children */
-    .stagger-children > * {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    
-    .stagger-children-active > *:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
-    .stagger-children-active > *:nth-child(2) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
-    .stagger-children-active > *:nth-child(3) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
-    .stagger-children-active > *:nth-child(4) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
-    .stagger-children-active > *:nth-child(5) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
 }

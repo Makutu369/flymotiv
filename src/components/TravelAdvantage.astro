@@ -32,14 +32,14 @@ const stats = [
     <div class="max-w-7xl mx-auto px-6 mb-24 md:mb-32">
         <div class="grid lg:grid-cols-12 gap-6 md:gap-8">
             <!-- Large feature card -->
-            <div class="lg:col-span-7 group" data-reveal="clip">
+            <div class="lg:col-span-7 group">
                 <div class="relative bg-primary rounded-[2rem] p-10 md:p-14 h-full overflow-hidden transition-all duration-700 hover:shadow-2xl hover:shadow-primary/20">
                     <!-- Background pattern -->
                     <div class="absolute inset-0 opacity-5">
                         <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
                     </div>
                     <!-- Accent glow -->
-                    <div class="absolute -top-32 -right-32 w-64 h-64 bg-accent-orange/20 rounded-full blur-[100px] transition-opacity duration-700 opacity-0 group-hover:opacity-100"></div>
+                    <div class="absolute -top-32 -right-32 w-64 h-64 bg-accent-indigo/20 rounded-full blur-[100px] transition-opacity duration-700 opacity-0 group-hover:opacity-100"></div>
                     
                     <div class="relative z-10">
                         <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 mb-6 block">
@@ -50,7 +50,7 @@ const stats = [
                             style="font-family: var(--font-heading);"
                         >
                             The Motiv Pro<br />
-                            <span class="serif-italic text-accent-orange">Advantage.</span>
+                            <span class="serif-italic text-accent-indigo">Advantage.</span>
                         </h2>
                         <p class="text-white/50 font-light leading-relaxed max-w-md mb-12">
                             Precision planning and industry expertise that transforms every journey into a masterpiece.
@@ -76,14 +76,14 @@ const stats = [
             <!-- Stacked feature cards -->
             <div class="lg:col-span-5 flex flex-col gap-6 md:gap-8">
                 {whyTravel.map((reason, index) => (
-                    <div class="group flex-1" data-reveal="clip">
+                    <div class="group flex-1">
                         <div class="relative bg-grey-bg rounded-[2rem] p-8 md:p-10 h-full overflow-hidden transition-all duration-700 hover:bg-white hover:shadow-xl hover:shadow-black/5">
                             <!-- Hover accent -->
-                            <div class="absolute bottom-0 left-0 w-full h-1 bg-accent-orange transform scale-x-0 origin-left transition-transform duration-700 group-hover:scale-x-100"></div>
+                            <div class="absolute bottom-0 left-0 w-full h-1 bg-accent-indigo transform scale-x-0 origin-left transition-transform duration-700 group-hover:scale-x-100"></div>
                             
                             <div class="relative z-10 flex items-start gap-6">
                                 <div
-                                    class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-primary flex-shrink-0 transition-all duration-500 group-hover:bg-accent-orange group-hover:text-white group-hover:rotate-3"
+                                    class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-primary flex-shrink-0 transition-all duration-500 group-hover:bg-accent-indigo group-hover:text-white group-hover:rotate-3"
                                     set:html={reason.icon}
                                 />
                                 <div>
@@ -110,7 +110,7 @@ const stats = [
                     <span class="text-6xl md:text-8xl font-bold text-primary/[0.03] tracking-tighter" style="font-family: var(--font-heading);">
                         Travel & Tour
                     </span>
-                    <span class="text-accent-orange/20 text-4xl">•</span>
+                    <span class="text-accent-indigo/20 text-4xl">•</span>
                 ))}
             </div>
             <div class="flex gap-8 items-center animate-marquee whitespace-nowrap" aria-hidden="true">
@@ -118,7 +118,7 @@ const stats = [
                     <span class="text-6xl md:text-8xl font-bold text-primary/[0.03] tracking-tighter" style="font-family: var(--font-heading);">
                         Travel & Tour
                     </span>
-                    <span class="text-accent-orange/20 text-4xl">•</span>
+                    <span class="text-accent-indigo/20 text-4xl">•</span>
                 ))}
             </div>
         </div>
@@ -127,13 +127,13 @@ const stats = [
     <!-- Bottom text -->
     <div class="max-w-7xl mx-auto px-6 pt-24 md:pt-32">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <p class="text-2xl md:text-3xl text-primary/70 font-light leading-relaxed" data-reveal="fade">
+            <p class="text-2xl md:text-3xl text-primary/70 font-light leading-relaxed">
                 Expert logistical support that transforms every journey into a <span class="serif-italic text-primary">masterpiece of precision.</span>
             </p>
-            <div class="flex justify-start lg:justify-end" data-reveal="fade">
-                <a href="/#contact" class="magnetic-btn group inline-flex items-center gap-4 text-sm font-semibold uppercase tracking-wider text-accent-orange">
+            <div class="flex justify-start lg:justify-end">
+                <a href="/#contact" class="magnetic-btn group inline-flex items-center gap-4 text-sm font-semibold uppercase tracking-wider text-accent-indigo">
                     <span>Start Planning</span>
-                    <span class="w-12 h-px bg-accent-orange group-hover:w-20 transition-all duration-500"></span>
+                    <span class="w-12 h-px bg-accent-indigo group-hover:w-20 transition-all duration-500"></span>
                 </a>
             </div>
         </div>

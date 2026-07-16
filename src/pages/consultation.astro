@@ -22,7 +22,7 @@ import "../styles/global.css";
 				--accent: #c4cdd6;
 				--text-muted: #6b7a8d;
 				--white: #ffffff;
-				--accent-orange: #4f46e5;
+				--accent-indigo: #4f46e5;
 				--font-serif: "Cormorant Garamond", serif;
 				--font-sans: "Inter", system-ui, sans-serif;
 				--font-heading: "Syne", sans-serif;
@@ -91,7 +91,7 @@ import "../styles/global.css";
 			}
 			.progress-fill {
 				height: 100%;
-				background: linear-gradient(90deg, var(--accent-orange), rgba(129, 140, 248, 0.8));
+				background: linear-gradient(90deg, var(--accent-indigo), rgba(129, 140, 248, 0.8));
 				width: 0%;
 				transition: width 0.6s cubic-bezier(0.33, 1, 0.68, 1);
 			}
@@ -281,8 +281,8 @@ import "../styles/global.css";
 				color: var(--white);
 			}
 			.option-card.selected::before {
-				background: var(--accent-orange);
-				border-color: var(--accent-orange);
+				background: var(--accent-indigo);
+				border-color: var(--accent-indigo);
 				box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
 			}
 
@@ -332,7 +332,7 @@ import "../styles/global.css";
 				width: 48px;
 				height: 48px;
 				border-radius: 50%;
-				background: linear-gradient(135deg, var(--accent-orange), rgba(255,255,255,0.9));
+				background: linear-gradient(135deg, var(--accent-indigo), rgba(255,255,255,0.9));
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -412,7 +412,10 @@ import "../styles/global.css";
 			</button>
 
 			<!-- Logo -->
-			<div class="logo-mark">MotivPro</div>
+			<a href="/" class="logo-mark group flex items-center gap-2">
+				<svg class="w-4 h-4 text-white/30 group-hover:text-white/60 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+				MotivPro
+			</a>
 
 			<!-- ═══════ Step 1: First Name ═══════ -->
 			<div class="step active" data-step="1">

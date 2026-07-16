@@ -48,19 +48,18 @@ const services = [
     <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24">
         <div class="grid lg:grid-cols-2 gap-12 items-end">
             <div>
-                <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40 block mb-6" data-reveal="fade">
+                <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40 block mb-6">
                     Service Portfolio
                 </span>
                 <h2
                     class="text-5xl md:text-6xl lg:text-8xl font-bold leading-[0.85] tracking-tight text-white"
                     style="font-family: var(--font-heading);"
-                    data-reveal="fade"
                 >
                     What We<br />
                     <span class="serif-italic text-white/60">Offer.</span>
                 </h2>
             </div>
-            <div class="lg:pb-4" data-reveal="fade">
+            <div class="lg:pb-4">
                 <p class="text-lg text-white/40 font-light leading-relaxed max-w-md">
                     Expert logistical support and seamless planning for leisure,
                     education, or corporate objectives.
@@ -69,15 +68,12 @@ const services = [
         </div>
     </div>
 
-    <!-- Horizontal scroll container -->
-    <div class="horizontal-scroll-wrapper relative" id="horizontal-scroll">
-        <div class="horizontal-scroll-track flex gap-6 md:gap-8 pl-6 md:pl-12 pr-[30vw]">
-            {services.map((service, index) => (
-                <div
-                    class="horizontal-scroll-card flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] group"
-                    data-reveal="fade"
-                >
-                    <div class="relative bg-white/5 rounded-3xl p-8 md:p-10 border border-white/10 h-full transition-all duration-700 hover:bg-white/10 hover:border-white/20">
+    <!-- Horizontal scrollable cards -->
+    <div class="overflow-x-auto pb-8 scrollbar-hide">
+        <div class="flex gap-6 md:gap-8 pl-6 md:pl-12 pr-6 md:pr-12 w-max">
+            {services.map((service) => (
+                <div class="flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] group">
+                    <div class="relative bg-white/5 rounded-3xl p-8 md:p-10 border border-white/10 h-full transition-all duration-500 hover:bg-white/10 hover:border-white/20">
                         <!-- Number -->
                         <span class="text-[80px] md:text-[120px] font-bold text-white/[0.03] leading-none absolute top-4 right-6 md:top-6 md:right-8" style="font-family: var(--font-heading);">
                             {service.number}
@@ -85,7 +81,7 @@ const services = [
                         
                         <!-- Content -->
                         <div class="relative z-10">
-                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-orange mb-4 block">
+                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-indigo mb-4 block">
                                 {service.subtitle}
                             </span>
                             <h3
@@ -99,11 +95,11 @@ const services = [
                             </p>
                             
                             <a
-                                href="/#contact"
+                                href="/consultation"
                                 class="inline-flex items-center gap-4 text-xs font-bold uppercase tracking-[0.2em] text-white group/link"
                             >
                                 <span>Learn More</span>
-                                <span class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center transition-all duration-500 group-hover/link:bg-white group-hover/link:text-primary">
+                                <span class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center transition-all duration-300 group-hover/link:bg-white group-hover/link:text-primary">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
@@ -112,7 +108,7 @@ const services = [
                         </div>
 
                         <!-- Image preview on hover -->
-                        <div class="absolute bottom-0 right-0 w-1/3 h-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 overflow-hidden rounded-tr-3xl rounded-bl-3xl">
+                        <div class="absolute bottom-0 right-0 w-1/3 h-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden rounded-tr-3xl rounded-bl-3xl">
                             <img
                                 src={service.image}
                                 alt={service.title}
@@ -126,63 +122,21 @@ const services = [
         </div>
     </div>
 
-    <!-- Scroll progress indicator -->
+    <!-- Scroll hint -->
     <div class="max-w-7xl mx-auto px-6 mt-16 md:mt-24">
         <div class="flex items-center gap-4">
-            <div class="h-px flex-1 bg-white/10 relative overflow-hidden">
-                <div id="scroll-progress" class="absolute top-0 left-0 h-full bg-accent-orange transition-all duration-300" style="width: 0%"></div>
-            </div>
+            <div class="h-px flex-1 bg-white/10"></div>
             <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-white/30">Scroll to explore</span>
         </div>
     </div>
 </section>
 
 <style>
-    .horizontal-scroll-wrapper {
-        overflow: hidden;
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
-    
-    .horizontal-scroll-track {
-        transition: transform 0.1s ease-out;
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
     }
 </style>
-
-<script>
-    import { animate, scroll, inView } from "motion";
-
-    // Horizontal scroll on vertical scroll
-    const scrollContainer = document.getElementById('horizontal-scroll');
-    const scrollTrack = document.querySelector<HTMLElement>('.horizontal-scroll-track');
-    const progressBar = document.getElementById('scroll-progress');
-    
-    if (scrollContainer && scrollTrack) {
-        let ticking = false;
-        
-        function updateHorizontalScroll() {
-            const rect = scrollContainer.getBoundingClientRect();
-            const scrollHeight = scrollContainer.offsetHeight - window.innerHeight;
-            const scrolled = -rect.top;
-            
-            if (scrolled >= 0 && scrolled <= scrollHeight) {
-                const maxScroll = scrollTrack.scrollWidth - window.innerWidth;
-                const progress = scrolled / scrollHeight;
-                const translateX = -progress * maxScroll;
-                
-                scrollTrack.style.transform = `translateX(${translateX}px)`;
-                
-                if (progressBar) {
-                    progressBar.style.width = `${progress * 100}%`;
-                }
-            }
-            
-            ticking = false;
-        }
-        
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(updateHorizontalScroll);
-                ticking = true;
-            }
-        }, { passive: true });
-    }
-</script>
