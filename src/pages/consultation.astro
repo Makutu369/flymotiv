@@ -1,0 +1,677 @@
+---
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="description" content="Book a consultation with MotivPro Group — Expert guidance for education, travel, and global mobility." />
+		<title>Book a Consultation | MotivPro Group</title>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap');
+
+			*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+			:root {
+				--primary: #1a2332;
+				--primary-light: #243044;
+				--background: #f0f2f5;
+				--accent: #c4cdd6;
+				--text-muted: #6b7a8d;
+				--white: #ffffff;
+				--accent-orange: #4f46e5;
+				--font-serif: "Cormorant Garamond", serif;
+				--font-sans: "Inter", system-ui, sans-serif;
+				--font-heading: "Syne", sans-serif;
+			}
+
+			html, body {
+				height: 100%;
+				overflow: hidden;
+				font-family: var(--font-sans);
+				background: var(--primary);
+				color: var(--white);
+				-webkit-font-smoothing: antialiased;
+			}
+
+			/* ── App ── */
+			#app {
+				position: relative;
+				height: 100vh;
+				width: 100vw;
+				overflow: hidden;
+				background: linear-gradient(160deg, var(--primary) 0%, #0f1923 50%, var(--primary) 100%);
+			}
+
+			/* Grain texture */
+			#app::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				opacity: 0.025;
+				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			/* Decorative elements */
+			.deco-line {
+				position: fixed;
+				width: 1px;
+				background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.06), transparent);
+				z-index: 0;
+				pointer-events: none;
+			}
+			.deco-line-1 { left: 8%; top: 15%; height: 25vh; }
+			.deco-line-2 { right: 8%; bottom: 10%; height: 30vh; }
+			.deco-dot {
+				position: fixed;
+				width: 4px;
+				height: 4px;
+				border-radius: 50%;
+				background: rgba(79, 70, 229, 0.3);
+				z-index: 0;
+				pointer-events: none;
+			}
+			.deco-dot-1 { top: 20%; right: 15%; }
+			.deco-dot-2 { bottom: 25%; left: 12%; }
+
+			/* ── Progress ── */
+			.progress-track {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 3px;
+				background: rgba(255,255,255,0.06);
+				z-index: 100;
+			}
+			.progress-fill {
+				height: 100%;
+				background: linear-gradient(90deg, var(--accent-orange), rgba(129, 140, 248, 0.8));
+				width: 0%;
+				transition: width 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+			}
+			.step-counter {
+				position: fixed;
+				top: 28px;
+				right: 36px;
+				font-size: 11px;
+				font-weight: 500;
+				letter-spacing: 0.12em;
+				color: rgba(255,255,255,0.2);
+				z-index: 100;
+				opacity: 0;
+				transition: opacity 0.4s;
+			}
+			.step-counter.visible { opacity: 1; }
+
+			/* ── Logo watermark ── */
+			.logo-mark {
+				position: fixed;
+				bottom: 28px;
+				right: 36px;
+				font-size: 12px;
+				font-weight: 700;
+				letter-spacing: 0.05em;
+				color: rgba(255,255,255,0.08);
+				z-index: 1;
+				font-family: var(--font-heading);
+			}
+
+			/* ── Steps ── */
+			.step {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 24px;
+				opacity: 0;
+				visibility: hidden;
+				will-change: transform, opacity;
+				z-index: 2;
+			}
+			.step.active {
+				opacity: 1;
+				visibility: visible;
+			}
+			.step-inner {
+				width: 100%;
+				max-width: 560px;
+			}
+
+			/* ── Labels ── */
+			.q-label {
+				font-size: 18px;
+				font-weight: 500;
+				letter-spacing: -0.01em;
+				color: rgba(255,255,255,0.6);
+				margin-bottom: 20px;
+				text-transform: none;
+			}
+
+			/* ── Inputs ── */
+			.q-input {
+				width: 100%;
+				background: transparent;
+				border: none;
+				border-bottom: 1.5px solid rgba(255,255,255,0.12);
+				padding: 14px 0;
+				font-size: clamp(22px, 4vw, 30px);
+				font-weight: 300;
+				color: var(--white);
+				font-family: var(--font-sans);
+				outline: none;
+				transition: border-color 0.3s;
+			}
+			.q-input::placeholder { color: rgba(255,255,255,0.12); }
+			.q-input:focus { border-bottom-color: rgba(255,255,255,0.5); }
+			textarea.q-input { resize: none; line-height: 1.5; }
+			input[type="date"].q-input { color-scheme: dark; }
+
+			/* ── Buttons ── */
+			.btn-row {
+				margin-top: 36px;
+				display: flex;
+				align-items: center;
+				gap: 12px;
+			}
+			.btn-ok {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				background: rgba(255,255,255,0.07);
+				color: rgba(255,255,255,0.7);
+				border: 1px solid rgba(255,255,255,0.08);
+				padding: 11px 22px;
+				border-radius: 999px;
+				font-size: 12px;
+				font-weight: 500;
+				cursor: pointer;
+				transition: all 0.25s;
+				font-family: var(--font-sans);
+			}
+			.btn-ok:hover {
+				background: rgba(255,255,255,0.12);
+				border-color: rgba(255,255,255,0.2);
+				color: var(--white);
+			}
+			.btn-ok svg { width: 13px; height: 13px; }
+
+			.btn-skip {
+				background: none;
+				border: none;
+				color: rgba(255,255,255,0.2);
+				font-size: 11px;
+				cursor: pointer;
+				font-family: var(--font-sans);
+				transition: color 0.2s;
+				padding: 11px 8px;
+			}
+			.btn-skip:hover { color: rgba(255,255,255,0.45); }
+
+			.btn-submit {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				background: var(--white);
+				color: var(--primary);
+				border: none;
+				padding: 13px 28px;
+				border-radius: 999px;
+				font-size: 13px;
+				font-weight: 600;
+				cursor: pointer;
+				transition: all 0.3s;
+				font-family: var(--font-sans);
+			}
+			.btn-submit:hover {
+				box-shadow: 0 6px 24px rgba(255,255,255,0.15);
+				transform: translateY(-1px);
+			}
+			.btn-submit svg { width: 14px; height: 14px; }
+
+			/* ── Options ── */
+			.options-grid {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+			.option-card {
+				width: 100%;
+				text-align: left;
+				background: rgba(255,255,255,0.025);
+				border: 1px solid rgba(255,255,255,0.06);
+				border-radius: 14px;
+				padding: 18px 24px;
+				color: rgba(255,255,255,0.5);
+				font-size: 14px;
+				font-weight: 400;
+				cursor: pointer;
+				transition: all 0.25s;
+				font-family: var(--font-sans);
+				display: flex;
+				align-items: center;
+				gap: 14px;
+			}
+			.option-card::before {
+				content: '';
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				border: 1.5px solid rgba(255,255,255,0.15);
+				flex-shrink: 0;
+				transition: all 0.25s;
+			}
+			.option-card:hover {
+				background: rgba(255,255,255,0.06);
+				border-color: rgba(255,255,255,0.15);
+				color: rgba(255,255,255,0.85);
+			}
+			.option-card:hover::before {
+				border-color: rgba(255,255,255,0.4);
+			}
+			.option-card.selected {
+				background: rgba(79, 70, 229, 0.12);
+				border-color: rgba(79, 70, 229, 0.4);
+				color: var(--white);
+			}
+			.option-card.selected::before {
+				background: var(--accent-orange);
+				border-color: var(--accent-orange);
+				box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
+			}
+
+			/* ── Back ── */
+			.back-btn {
+				position: fixed;
+				bottom: 32px;
+				left: 36px;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				background: none;
+				border: none;
+				color: rgba(255,255,255,0.2);
+				font-size: 12px;
+				cursor: pointer;
+				font-family: var(--font-sans);
+				transition: color 0.2s;
+				z-index: 100;
+				opacity: 0;
+				pointer-events: none;
+			}
+			.back-btn:hover { color: rgba(255,255,255,0.45); }
+			.back-btn svg { width: 15px; height: 15px; }
+			.back-btn.visible { opacity: 1; pointer-events: auto; }
+
+			/* ── Completion screen ── */
+			.completion-ring {
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+				border: 2px solid rgba(79, 70, 229, 0.3);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 0 auto 40px;
+				position: relative;
+			}
+			.completion-ring::before {
+				content: '';
+				position: absolute;
+				inset: -8px;
+				border-radius: 50%;
+				border: 1px solid rgba(255,255,255,0.04);
+			}
+			.completion-check {
+				width: 48px;
+				height: 48px;
+				border-radius: 50%;
+				background: linear-gradient(135deg, var(--accent-orange), rgba(255,255,255,0.9));
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.completion-check svg {
+				width: 22px;
+				height: 22px;
+				color: var(--primary);
+			}
+
+			.btn-home {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				background: rgba(255,255,255,0.07);
+				border: 1px solid rgba(255,255,255,0.12);
+				color: var(--white);
+				padding: 14px 32px;
+				border-radius: 999px;
+				font-size: 13px;
+				font-weight: 500;
+				text-decoration: none;
+				transition: all 0.3s;
+				font-family: var(--font-sans);
+				margin-top: 40px;
+			}
+			.btn-home:hover {
+				background: rgba(255,255,255,0.12);
+				border-color: rgba(255,255,255,0.25);
+				transform: translateY(-1px);
+			}
+			.btn-home svg { width: 16px; height: 16px; }
+
+			/* ── Serif ── */
+			.serif-italic {
+				font-family: var(--font-serif);
+				font-style: italic;
+			}
+
+			/* ── Shake ── */
+			@keyframes shake {
+				0%, 100% { transform: translateX(0); }
+				20% { transform: translateX(-6px); }
+				40% { transform: translateX(6px); }
+				60% { transform: translateX(-4px); }
+				80% { transform: translateX(4px); }
+			}
+			.shake { animation: shake 0.35s ease-out; }
+
+			/* ── Pulse on completion ring ── */
+			@keyframes pulse-ring {
+				0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.25); }
+				70% { box-shadow: 0 0 0 16px rgba(79, 70, 229, 0); }
+				100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+			}
+			.completion-ring { animation: pulse-ring 2s ease-out 0.5s; }
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- Decorative -->
+			<div class="deco-line deco-line-1"></div>
+			<div class="deco-line deco-line-2"></div>
+			<div class="deco-dot deco-dot-1"></div>
+			<div class="deco-dot deco-dot-2"></div>
+
+			<!-- Progress -->
+			<div class="progress-track">
+				<div class="progress-fill" id="progressFill"></div>
+			</div>
+			<div class="step-counter" id="stepCounter"></div>
+
+			<!-- Back -->
+			<button class="back-btn" id="backBtn">
+				<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+				Back
+			</button>
+
+			<!-- Logo -->
+			<div class="logo-mark">MotivPro</div>
+
+			<!-- ═══════ Step 1: First Name ═══════ -->
+			<div class="step active" data-step="1">
+				<div class="step-inner">
+					
+					<div class="q-label">What's your first name?</div>
+					<input class="q-input" type="text" name="firstName" placeholder="Type your answer here..." required />
+					<div class="btn-row">
+						<button class="btn-ok" data-next>OK <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg></button>
+						<span style="font-size:10px;color:rgba(255,255,255,0.12);">or press Enter</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ═══════ Step 2: Last Name ═══════ -->
+			<div class="step" data-step="2">
+				<div class="step-inner">
+					
+					<div class="q-label">And your last name?</div>
+					<input class="q-input" type="text" name="lastName" placeholder="Type your answer here..." required />
+					<div class="btn-row">
+						<button class="btn-ok" data-next>OK <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg></button>
+						<span style="font-size:10px;color:rgba(255,255,255,0.12);">or press Enter</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ═══════ Step 3: Email ═══════ -->
+			<div class="step" data-step="3">
+				<div class="step-inner">
+					
+					<div class="q-label">What's your email address?</div>
+					<input class="q-input" type="email" name="email" placeholder="you@example.com" required />
+					<div class="btn-row">
+						<button class="btn-ok" data-next>OK <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg></button>
+						<span style="font-size:10px;color:rgba(255,255,255,0.12);">or press Enter</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- ═══════ Step 4: Phone ═══════ -->
+			<div class="step" data-step="4">
+				<div class="step-inner">
+					
+					<div class="q-label">Phone number? <span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:0.5;">optional</span></div>
+					<input class="q-input" type="tel" name="phone" placeholder="+233 50 123 4567" />
+					<div class="btn-row">
+						<button class="btn-ok" data-next>OK <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg></button>
+						<button class="btn-skip" data-next>Skip</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- ═══════ Step 5: Service ═══════ -->
+			<div class="step" data-step="5">
+				<div class="step-inner">
+					
+					<div class="q-label">What do you need help with?</div>
+					<div class="options-grid">
+						<button type="button" class="option-card" data-value="Educational Missions & Scholarships">Educational Missions & Scholarships</button>
+						<button type="button" class="option-card" data-value="Corporate Travel Logistics">Corporate Travel Logistics</button>
+						<button type="button" class="option-card" data-value="Travel Protocol & Visa Assistance">Travel Protocol & Visa Assistance</button>
+						<button type="button" class="option-card" data-value="Study Abroad Programs">Study Abroad Programs</button>
+						<button type="button" class="option-card" data-value="Group & Team Travel">Group & Team Travel</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- ═══════ Step 6: Date ═══════ -->
+			<div class="step" data-step="6">
+				<div class="step-inner">
+					
+					<div class="q-label">When would you like to meet?</div>
+					<input class="q-input" type="date" name="preferredDate" />
+					<div class="btn-row">
+						<button class="btn-ok" data-next>OK <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg></button>
+						<button class="btn-skip" data-next>Skip</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- ═══════ Step 7: Goals ═══════ -->
+			<div class="step" data-step="7">
+				<div class="step-inner">
+					
+					<div class="q-label">Tell us about your goals</div>
+					<textarea class="q-input" rows="3" name="message" placeholder="What are you looking to achieve?"></textarea>
+					<div class="btn-row">
+						<button class="btn-submit" id="submitBtn">
+							Submit
+							<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- ═══════ Step 8: Done ═══════ -->
+			<div class="step" data-step="8">
+				<div class="step-inner" style="text-align:center;">
+					<div class="completion-ring">
+						<div class="completion-check">
+							<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+						</div>
+					</div>
+					<h2 style="font-size:clamp(26px,5vw,38px);font-weight:700;letter-spacing:-0.02em;margin-bottom:16px;">
+						You're all set<span class="serif-italic" style="color:rgba(255,255,255,0.4);">.</span>
+					</h2>
+					<p style="color:rgba(255,255,255,0.3);font-weight:300;line-height:1.8;max-width:380px;margin:0 auto;font-size:15px;">
+						Thank you! We'll review your details and get back to you within 24 hours to confirm your consultation.
+					</p>
+					<a href="/" class="btn-home">
+						<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"></path></svg>
+						Back to Home
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Hidden form for Formspree -->
+		<form id="hiddenForm" action="https://formspree.io/f/xrewzdok" method="POST" style="display:none;">
+			<input type="hidden" name="firstName" />
+			<input type="hidden" name="lastName" />
+			<input type="hidden" name="email" />
+			<input type="hidden" name="phone" />
+			<input type="hidden" name="service" />
+			<input type="hidden" name="preferredDate" />
+			<input type="hidden" name="message" />
+		</form>
+
+		<script>
+			import { animate, stagger } from "motion";
+
+			const TOTAL = 7;
+			let current = 1;
+			const steps = document.querySelectorAll<HTMLElement>(".step");
+			const progressFill = document.getElementById("progressFill")!;
+			const stepCounter = document.getElementById("stepCounter")!;
+			const backBtn = document.getElementById("backBtn")!;
+			const hiddenForm = document.getElementById("hiddenForm") as HTMLFormElement;
+
+			function updateUI() {
+				const pct = (current / TOTAL) * 100;
+				progressFill.style.width = pct + "%";
+
+				if (current >= 1 && current <= TOTAL) {
+					stepCounter.textContent = current + " / " + TOTAL;
+					stepCounter.classList.add("visible");
+				} else {
+					stepCounter.classList.remove("visible");
+				}
+
+				if (current > 1 && current <= TOTAL) {
+					backBtn.classList.add("visible");
+				} else {
+					backBtn.classList.remove("visible");
+				}
+			}
+
+			function go(target: number) {
+				if (target < 1 || target > TOTAL + 1 || target === current) return;
+				const outEl = steps[current - 1];
+				const inEl = steps[target - 1];
+
+				if (outEl) {
+					animate(outEl, { opacity: [1, 0], y: [0, -20] }, { duration: 0.25, easing: [0.33, 1, 0.68, 1] })
+						.then(() => outEl.classList.remove("active"));
+				}
+
+				current = target;
+				updateUI();
+
+				setTimeout(() => {
+					if (!inEl) return;
+					inEl.classList.add("active");
+
+					animate(inEl, { opacity: [0, 1], y: [35, 0] }, { duration: 0.5, easing: [0.33, 1, 0.68, 1] });
+
+					const els = inEl.querySelectorAll(".q-label, .q-input, .btn-ok, .btn-skip, .btn-submit, .option-card, h2, p, .btn-home, .completion-ring");
+					if (els.length) {
+						animate(els, { opacity: [0, 1], y: [14, 0] }, { duration: 0.4, easing: [0.33, 1, 0.68, 1], delay: stagger(0.04, { start: 0.1 }) });
+					}
+
+					const inp = inEl.querySelector("input:not([type=hidden]):not([type=date]), textarea") as HTMLElement;
+					if (inp) setTimeout(() => inp.focus(), 350);
+				}, 200);
+			}
+
+			function nextFrom(el: HTMLElement) {
+				const s = el.closest(".step") as HTMLElement;
+				const inp = s?.querySelector("input[required], textarea[required]") as HTMLInputElement;
+				if (inp && !inp.value.trim()) {
+					inp.classList.add("shake");
+					setTimeout(() => inp.classList.remove("shake"), 400);
+					inp.focus();
+					return;
+				}
+				go(current + 1);
+			}
+
+			// Back
+			backBtn.addEventListener("click", () => go(current - 1));
+
+			// Next / Skip
+			document.querySelectorAll<HTMLElement>("[data-next]").forEach((btn) => {
+				btn.addEventListener("click", () => nextFrom(btn));
+			});
+
+			// Service options
+			document.querySelectorAll<HTMLElement>(".option-card").forEach((card) => {
+				card.addEventListener("click", () => {
+					document.querySelectorAll(".option-card").forEach((c) => c.classList.remove("selected"));
+					card.classList.add("selected");
+					setTimeout(() => go(current + 1), 400);
+				});
+			});
+
+			// Enter key
+			document.addEventListener("keydown", (e) => {
+				if (e.key !== "Enter" || current < 1 || current >= TOTAL) return;
+				if (document.activeElement?.tagName === "TEXTAREA") return;
+				e.preventDefault();
+				const okBtn = steps[current - 1]?.querySelector("[data-next]") as HTMLElement;
+				if (okBtn) okBtn.click();
+			});
+
+			// Submit
+			document.getElementById("submitBtn")!.addEventListener("click", async (e) => {
+				e.preventDefault();
+				const app = document.getElementById("app")!;
+				const getValue = (n: string) => {
+					const el = app.querySelector(`.step.active [name="${n}"], .step [name="${n}"]`) as HTMLInputElement;
+					return el?.value || "";
+				};
+				["firstName", "lastName", "email", "phone", "service", "preferredDate", "message"].forEach((n) => {
+					const h = hiddenForm.querySelector(`[name="${n}"]`) as HTMLInputElement;
+					if (h) h.value = getValue(n);
+				});
+
+				const btn = document.getElementById("submitBtn")!;
+				btn.innerHTML = 'Sending...';
+
+				try {
+					const res = await fetch(hiddenForm.action, {
+						method: "POST",
+						body: new FormData(hiddenForm),
+						headers: { Accept: "application/json" },
+					});
+					if (res.ok) {
+						go(TOTAL + 1);
+					} else {
+						throw new Error("fail");
+					}
+				} catch {
+					btn.innerHTML = 'Submit <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>';
+					alert("Something went wrong. Please try again.");
+				}
+			});
+
+			updateUI();
+		</script>
+	</body>
+</html>

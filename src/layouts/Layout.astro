@@ -12,17 +12,52 @@ const { title = "MotivPro Group | Global Mobility Experts" } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content="MotivPro Group — Curated global journeys, visa assistance, and seamless travel experiences from Accra, Ghana." />
 		<title>{title}</title>
+		<style>
+			/* Initial load state - prevent FOUC */
+			html {
+				scroll-behavior: smooth;
+			}
+			
+			body {
+				opacity: 0;
+				animation: fadeInBody 0.5s ease-out forwards;
+				animation-delay: 0.1s;
+			}
+			
+			@keyframes fadeInBody {
+				to { opacity: 1; }
+			}
+		</style>
 	</head>
 	<body>
 		<slot />
 
 		<script>
 			import { animate, scroll, inView, stagger } from "motion";
+
+			// =============================================
+			// SMOOTH SCROLL FOR ANCHOR LINKS
+			// =============================================
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (this: HTMLElement, e: Event) {
+					e.preventDefault();
+					const href = this.getAttribute('href');
+					if (href) {
+						const target = document.querySelector(href);
+						if (target) {
+							target.scrollIntoView({
+								behavior: 'smooth',
+								block: 'start'
+							});
+						}
+					}
+				});
+			});
 
 			// =============================================
 			// HERO PARALLAX — native scroll, GPU-accelerated
@@ -77,8 +112,8 @@ const { title = "MotivPro Group | Global Mobility Experts" } = Astro.props;
 			inView('[data-reveal="clip"]', (elements) => {
 				animate(
 					elements,
-					{ clipPath: ["inset(100% 0 0 0)", "inset(0% 0 0 0)"] },
-					{ duration: 1.2, easing: [0.65, 0, 0.35, 1], delay: stagger(0.08) }
+					{ opacity: [0, 1], scale: [0.95, 1], y: [30, 0] },
+					{ duration: 1, easing: [0.25, 1, 0.5, 1], delay: stagger(0.08) }
 				);
 			}, { margin: "-8% 0px" });
 
@@ -93,7 +128,7 @@ const { title = "MotivPro Group | Global Mobility Experts" } = Astro.props;
 			// =============================================
 			// OTHER PARALLAX IMAGES — native scroll
 			// =============================================
-			document.querySelectorAll<HTMLElement>('.parallax-img:not(#hero .parallax-img)').forEach(img => {
+			document.querySelectorAll<HTMLElement>('.parallax-img:not(#hero .parallax-img):not(#discover-hero .parallax-img)').forEach(img => {
 				img.style.willChange = 'transform';
 				const parent = img.parentElement!;
 				let imgTicking = false;
@@ -135,6 +170,17 @@ const { title = "MotivPro Group | Global Mobility Experts" } = Astro.props;
 					bounds = null;
 				});
 			});
+
+			// =============================================
+			// SMOOTH SECTION TRANSITIONS
+			// =============================================
+			inView('[data-section]', (elements) => {
+				elements.forEach(el => {
+					el.classList.add('section-visible');
+				});
+			}, { margin: "-10% 0px" });
+
+
 		</script>
 	</body>
 </html>
