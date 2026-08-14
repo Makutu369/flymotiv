@@ -20,38 +20,44 @@ const { title = "MotivPro Group | Global Mobility Experts" } = Astro.props;
 	</head>
 	<body>
 		<!-- Partnership Announcement Banner -->
-		<div id="partnership-banner" class="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-[#1e1b4b] via-[#312e81] to-[#1e1b4b] relative overflow-hidden">
-			<!-- Subtle pattern overlay -->
-			<div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Ccircle cx=%221%22 cy=%221%22 r=%221%22 fill=%22white%22/%3E%3C/svg%3E');"></div>
-			<div class="flex items-center justify-center py-3 px-12 relative z-10">
-				<div class="flex items-center gap-3 md:gap-4">
-					<span class="hidden sm:inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/10 backdrop-blur-sm">
-						<svg class="w-4 h-4 text-indigo-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+		<div id="partnership-banner" class="fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600 relative overflow-hidden border-b border-orange-700/50">
+			<!-- Subtle dot pattern -->
+			<div class="absolute inset-0 opacity-[0.06]" style="background-image: url('data:image/svg+xml,%3Csvg width=%2216%22 height=%2216%22 viewBox=%220 0 16 16%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Ccircle cx=%221%22 cy=%221%22 r=%220.8%22 fill=%22white%22/%3E%3C/svg%3E');"></div>
+			
+			<div class="flex items-center justify-between py-2.5 px-4 md:px-8 relative z-10 max-w-7xl mx-auto">
+				<!-- Left: Icon + Text -->
+				<div class="flex items-center gap-2.5 md:gap-4 min-w-0">
+					<span class="hidden sm:inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/20 flex-shrink-0">
+						<svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
 					</span>
-					<p class="text-white text-[11px] md:text-xs font-medium tracking-wide">
-						<span class="font-bold">Proud ISFIT Partner</span>
-						<span class="mx-2 text-white/30">|</span>
-						<span class="text-white/70">Empowering global education together</span>
-					</p>
-					<a href="/discover" class="inline-flex items-center gap-1.5 bg-indigo-500/30 hover:bg-indigo-500/50 backdrop-blur-sm text-white text-[11px] md:text-xs font-semibold px-4 py-1.5 rounded-full transition-all duration-300 ml-2 border border-indigo-400/20">
-						Discover
-						<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+					<div class="flex items-center gap-1.5 md:gap-2 text-[10px] md:text-[11px] min-w-0">
+						<span class="font-bold text-white whitespace-nowrap">Official ISFiT Partner</span>
+						<span class="text-white/40">|</span>
+						<span class="text-white/80 hidden sm:inline whitespace-nowrap">Travel Logistics Provider</span>
+						<span class="text-white/40 hidden sm:inline">|</span>
+						<span class="text-white font-medium hidden md:inline whitespace-nowrap">Trondheim, Norway 2027</span>
+					</div>
+				</div>
+
+				<!-- Right: CTA + Close -->
+				<div class="flex items-center gap-2 flex-shrink-0 ml-4">
+					<a href="https://participant.isfit.no/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 bg-white hover:bg-white/90 text-orange-600 text-[10px] md:text-[11px] font-bold px-3 md:px-4 py-1.5 rounded-full transition-all duration-300 whitespace-nowrap">
+						<span class="hidden sm:inline">Apply Now</span>
+						<span class="sm:hidden">Apply</span>
+						<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
 					</a>
+					<button
+						id="close-banner"
+						class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-200 group flex-shrink-0"
+						aria-label="Close banner"
+					>
+						<svg class="w-3 h-3 text-white/60 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+						</svg>
+					</button>
 				</div>
 			</div>
-			<button
-				id="close-banner"
-				class="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-200 group"
-				aria-label="Close banner"
-			>
-				<svg class="w-3.5 h-3.5 text-white/50 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-				</svg>
-			</button>
 		</div>
-
-		<!-- Spacer for fixed banner -->
-		<div class="h-11"></div>
 
 		<slot />
 
